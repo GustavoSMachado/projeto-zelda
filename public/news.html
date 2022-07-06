@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Novidades ZeldaGG</title>
+    <link rel="stylesheet" href="css/style.css" />
+</head>
+
+<body onload="validarSessao(), atualizarFeed()">
+    <div class="header">
+        <div class="container">
+            <a href="dashboard.html">
+                <h1 class="logo">ZeldaGG</h1>
+            </a>
+            <ul class="user_navbar">
+                <!-- <a class="a_selected" href="news.html">Noticias</a> -->
+                <img src="assets/icons/link profele pic.jpg">
+                <button class="more_options" onclick="abrir_menu()">
+                    ☰
+                </button>
+            </ul>
+        </div>
+    </div>
+
+    <div id="id_menu" class="menu">
+        <div class="navbar_menu">
+            <button onclick="fechar()" class="close_menu">X</button>
+            <ul>
+                <h1 id="nome_usuario_menu">
+
+                </h1>
+                <img src="assets/icons/link profele pic.jpg">
+            </ul>
+        </div>
+        <ul class="options">
+            <a href="news.html">Novidades</a>
+
+            <a onclick="limparSessao()">Sair da Conta</a>
+        </ul>
+
+    </div>
+
+    <div class="global_intro">
+        <div class="enredo">
+            <h2>
+                Trailer da sequencia de The Legend of zelda BOTW
+            </h2>
+
+            <h1>
+              A sequencia de The Legend Of Zelda BOTW ganha um novo trailer mostrando imgens
+              de um possivel braço Shiekha e mostrando ilhas no céu que possivelmente é uma conexão
+              direta com outro jogo da franquia The Legend Of Zelda Skyward Sword,
+              que é cronologicamente o primeiro jogo da franquia.
+            </h1>
+
+            <div>
+                <iframe class="trailer" width="560" height="315" src="https://www.youtube.com/embed/Pi-MRZBP91I"
+                    title="YouTube video player" frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen>
+                </iframe>
+            </div>
+            <h1>
+
+            </h1>
+        </div>
+    </div>
+
+    <div class="container_comentario">
+        <div class="div_coment">
+            <h3>
+                O que achou da noticia? Deixe seu comentario a respeito
+            </h3>
+        </div>
+        <div class="send_coment" id="div_send_coment" onsubmit="return publicar()">
+            <textarea name="descricao" maxlength="200" id="textarea_post" type="text"
+                placeholder="Digite seu comentario">
+        </textarea>
+            <button onclick="publicar()">Enviar</button>
+        </div>
+    </div>
+
+    <div class="containerFeed" id="id_feed">
+        <div class="feed" id="feed_container">
+          
+        </div>
+      </div>
+
+    <div class="footer">
+        <footer class="global_footer">
+            <section class="social_share">
+                <h3>
+                    Me siga em!
+                </h3>
+                <div class="footer_icons">
+                    <a target="_blank" href="https://github.com/GustavoDosSantosoMachado">
+                        <img src="assets/icons/github_logo_icon_147285.png">
+                    </a>
+                    <a target="_blank" href="https://instagram.com/gulcia_?igshid=YmMyMTA2M2Y=">
+                        <img src="assets/icons/Instagram-Icon.png">
+                    </a>
+                    <a target="_blank" href="https://www.linkedin.com/in/gustavo-machado-a13519240/">
+                        <img src="assets/icons/174857.png">
+                    </a>
+                </div>
+            </section>
+        </footer>
+    </div>
+</body>
+
+</html>
+<script src="js/funcoes.js"></script>
+
+<script>nome_usuario_menu.innerHTML = sessionStorage.NOME_USUARIO;</script>
+
+<script>
+    function publicar() {
+    var idUser = sessionStorage.USER_USUARIO;
+    console.log(idUser)
+
+    var corpo = {
+      descricao: div_send_coment.descricao.value
+    };
+    console.log(corpo)
+
+    fetch(`/avisos/publicar/${idUser}`, {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(corpo), 
+    })
+      .then(function (resposta) {
+        console.log("resposta: ", resposta);
+
+        if (resposta.ok) {
+          window.alert(
+            "Post realizado com sucesso pelo usuario de ID: " + idUser + "!"
+          );
+          window.location = "news.html";
+          /* limparFormulario(); */
+          /* finalizarAguardar(); */
+        } else if (resposta.status == 404) {
+          window.alert("Deu 404!");
+        } else {
+          throw (
+            "Houve um erro ao tentar realizar a postagem! Código da resposta: " +
+            resposta.status
+          );
+        }
+      })
+      .catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
+        /* finalizarAguardar(); */
+      });
+
+    return false;
+  }
+
+  function atualizarFeed() {
+    //aguardar();
+    fetch("/avisos/listar")
+      .then(function (resposta) {
+        if (resposta.ok) {
+          if (resposta.status == 204) {
+            var feed = document.getElementById("feed_container");
+            var mensagem = document.createElement("span");
+            mensagem.innerHTML = "Nenhum resultado encontrado.";
+            feed.appendChild(mensagem);
+            throw "Nenhum resultado encontrado!!";
+          }
+
+          resposta.json().then(function (resposta) {
+            console.log("Dados recebidos: ", JSON.stringify(resposta));
+            console.log(resposta.length)
+
+            var tamanhoFeed = resposta.length * 100
+
+            feed_container.style.height = tamanhoFeed + "px"
+
+            
+            var feed = document.getElementById("feed_container");
+            feed.innerHTML = "";
+            for (let i = resposta.length - 1; i >= 0; i--) {
+              var publicacao = resposta[i];
+
+              // criando e manipulando elementos do HTML via JavaScript
+              var divPublicacao = document.createElement("div");
+              var spanID = document.createElement("span");
+              var spanTitulo = document.createElement("span");
+              var spanNome = document.createElement("span");
+              var divDescricao = document.createElement("div");
+              var divButtons = document.createElement("div");
+
+              spanID.innerHTML = "<br><br><br>ID:<b>" + publicacao.idPost + "</b>";
+              spanNome.innerHTML = "Autor:<b>" + publicacao.nome + "</b>";
+              divDescricao.innerHTML =
+                "<br>Publicação: <b>" + publicacao.descricao + "</b>";
+
+              divPublicacao.className = "publicacao";
+              spanTitulo.id = "inputNumero" + publicacao.idPost;
+              spanNome.className = "publicacao-nome";
+              divDescricao.className = "publicacao-descricao";
+
+              divButtons.className = "div-buttons";
+
+              divPublicacao.appendChild(spanID);
+              divPublicacao.appendChild(spanNome);
+              divPublicacao.appendChild(divDescricao);
+              divPublicacao.appendChild(divButtons);
+              feed.appendChild(divPublicacao);
+            }
+
+            finalizarAguardar();
+          });
+        } else {
+          throw "Houve um erro na API!";
+        }
+      })
+      .catch(function (resposta) {
+        console.error(resposta);
+        finalizarAguardar();
+      });
+  }
+
+  function testar() {
+    aguardar();
+
+    var formulario = new URLSearchParams(
+      new FormData(document.getElementById("form_postagem"))
+    );
+    console.log(formulario.length)
+
+    var divResultado = document.getElementById("div_feed");
+
+    divResultado.appendChild(
+      document.createTextNode(formulario.get("descricao"))
+    );
+    divResultado.innerHTML = formulario.get("descricao");
+
+    finalizarAguardar();
+
+    return false;
+  }
+
+  var send = document.querySelector('button');
+  send.addEventListener('click', publicar)
+</script>
+

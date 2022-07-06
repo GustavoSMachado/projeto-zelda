@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="br">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ZeldaGG</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+
+<body onload="users()">
+  <div class="header">
+    <div class="container">
+      <h1 class="logo">ZeldaGG</h1>
+      <ul class="navbar">
+        <li>
+          <a href="./cadastro.html">Cadastro</a>
+        </li>
+        <button onclick="login()">Login</button>
+      </ul>
+    </div>
+  </div>
+
+  <div class="banner">
+    <div class="container_banner">
+      <div class="div_container_banner">
+        <h2>
+          Bem vindo a ZeldaGG
+        </h2>
+        <br>
+        <h2>
+          "O tempo passa, as pessoas se movem… Como um rio corre e nunca termina…
+          Uma mente infantil vai se tornar uma nobre ambicao…
+          Amor jovem vai se tornar profunda tristeza…
+          A agua reflete o crescimento…" <br>
+          – Sheik
+        </h2>
+      </div>
+    </div>
+  </div>
+
+  <div class="global_qtd_user">
+    <div class="div_qtd_user">
+      <h2>
+        Quantidade de usuarios castrado até o momento: <b id="qtd_users"></b>
+        <br><br>
+        Como meu site é algo inicial resolvi contar a quantidade de usuarios que fizam cadastro no site :D
+      </h2>
+    </div>
+  </div>
+
+  <div class="container_apresentacoes">
+    <div class="apresentacoes">
+      <h2>
+        The Legend Of Zelda Breath Wild é um dos maiores jogos da hitória dos videos
+        games, esse site foi criado para mostrar o conteúdo dessa obra maravilhosa e
+        introduzir novas pessoas a essa comunidade.
+      </h2>
+      <img src="assets/imgs/index img dlc-art.png">
+    </div>
+
+    <div class="title_apresentacoes">
+      <h3>
+        Sobre mim
+      </h3>
+    </div>
+
+    <div class="sobre">
+      <img src="assets/imgs/BotW_Mipha_Artwork.png">
+      <h2>
+        Sou um estudante de ADS da faculdade SpTech,
+        estou cursando primeiro semestre e esse site é meu projeto individual,
+        algo que eu fiz com tudo que eu aprendi durante esse periodo de 5 meses
+      </h2>
+    </div>
+  </div>
+
+  <div class="footer">
+    <footer class="global_footer">
+      <section class="social_share">
+        <h3>
+          Me siga em!
+        </h3>
+        <div class="footer_icons">
+          <a target="_blank" href="https://github.com/GustavoDosSantosoMachado">
+            <img src="assets/icons/github_logo_icon_147285.png">
+          </a>
+          <a target="_blank" href="https://instagram.com/gulcia_?igshid=YmMyMTA2M2Y=">
+            <img src="assets/icons/Instagram-Icon.png">
+          </a>
+          <a target="_blank" href="https://www.linkedin.com/in/gustavo-machado-a13519240/">
+            <img src="assets/icons/174857.png">
+          </a>
+        </div>
+      </section>
+    </footer>
+  </div>
+</body>
+
+</html>
+<script>
+
+  function login() {
+    window.window.location.href = "login.html"
+  }
+
+  function users() {
+
+    fetch("/usuarios/users", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then(function (resultado) {
+        console.log("ESTOU NO THEN DO entrar()!");
+
+        if (resultado.ok) {
+          console.log(resultado);
+
+          resultado.json().then((json) => {
+            console.log('users ', json);
+            console.log(JSON.stringify(json));
+
+
+            qtd_users.innerHTML = json.usuarios;
+
+            // apenas para exibir o loading
+          })
+          resposta.text().then((texto) => {
+            console.error(texto);
+          });
+        }
+      })
+      .catch(function (erro) {
+        console.log(erro);
+      });
+
+    return false;
+  }
+
+
+</script>

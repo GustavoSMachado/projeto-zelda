@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ZeldaGG</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="./js/funcoes.js"></script>
+</head>
+
+<body onload="validarSessao(),currentSlide(1)">
+  <div class="header">
+    <div class="container">
+      <h1 class="logo">ZeldaGG</h1>
+      <ul class="user_navbar">
+        <img src="assets/icons/link profele pic.jpg">
+        <button class="more_options" onclick="abrir_menu()">
+          ☰
+        </button>
+      </ul>
+    </div>
+  </div>
+
+  <div id="id_menu" class="menu">
+    <div class="navbar_menu">
+      <button onclick="fechar()" class="close_menu">X</button>
+      <ul>
+        <h1 id="nome_usuario_menu">
+
+        </h1>
+        <img src="assets/icons/link profele pic.jpg">
+      </ul>
+    </div>
+    <ul class="options">
+
+      <a href="news.html">Novidades</a>
+
+      <a onclick="limparSessao()">Sair da conta</a>
+    </ul>
+  </div>
+
+  <div class="global_intro">
+    <div class="enredo">
+      <h2>
+        Historia de The Legend Of Zelda Breath Wild
+      </h2>
+      <h1>
+        The Legend of Zelda: Breath of the Wild se passa no fim da cronologia de The Legend of Zelda, depois de todos os
+        outros jogos. No passado, por repetidas vezes, o mal conhecido como Calamity Ganon ameaçou o Reino de
+        Hyrule, sempre sendo derrotado pela princesa Zelda, descendente da deusa Hylia, com a ajuda de seu fiel protetor
+        Link. Hyrule com o passar dos séculos tornou-se uma civilização avançada, protegida por quatro Feras Divinas
+        – máquinas animalescas enormes – e por um exército de Guardiões, armas robóticas autônomas. Quando Ganon
+        retornou mais uma vez, quatro grandes guerreiros receberam o título de Campeões e pilotaram as Feras Divinas,
+        protegidos por Zelda, Link e pelos Guardiões. Link derrotou Ganon com a Espada Mestra, permitindo que Zelda o
+        selasse para longe.
+        <br><br>
+        Hyrule regrediu a um estado medieval dez mil anos depois. Os hyrulianos leram as profecias de seus
+        ancestrais e reconheceram os sinais do retorno de Ganon, escavando e recuperando as Feras Divinas e os
+        Guardiões. Os Campeões das raças de Hyrule – Daruk, guerreiro dos montanhosos goron; Mipha, princesa dos
+        aquáticos zora; Revali, arqueiro dos pássaros rito; e Urbosa, chefe das guerreiras gerudo – reuniram-se para
+        pilotar as Feras Divinas, enquanto Zelda e Link batalharam Ganon. Entretanto, este tomou controle dos
+        Guardiões e das Feras Divinas, fazendo-os atacar Hyrule. O rei Rhoam e os Campeões foram mortos, o Castelo de
+        Hyrule foi destruído e Link foi seriamente ferido. Zelda levou Link para um local seguro, escondeu a Espada
+        Mestra e usou sua magia para prender Ganon dentro do castelo.
+        <br><br>
+        Link acorda cem anos depois, porém sem suas memórias e descobrindo que Hyrule está toda em ruínas. Ele encontra
+        um velho, que revela ser o espírito do falecido rei Rhoam. Este explica que Ganon, selado dentro do Castelo de
+        Hyrule, está se fortalecendo; Rhoam pede para que Link derrote Ganon antes que este mal se liberte e destrua o
+        mundo. Link viaja por Hyrule, voltando a diversos locais de seu passado e resgatando suas memórias de
+        Zelda. Ele entra nas quatro Feras Divinas com a ajuda das raças hyrulianas, expurgando os monstros de Ganon
+        e libertando os espíritos dos antigos Campeões. Ele recupera a Espada Mestra nos Bosques
+        Perdidos, entra no Castelo de Hyrule e derrota Ganon com a ajuda das Feras Divinas e do Arco da Luz entregue
+        por Zelda. Ela sela Ganon novamente, restaurando a paz e permitindo que os espíritos de Rhoam e dos Campeões vão
+        embora. Zelda percebe que Hyrule precisa ser reconstruída e que ela e Link precisam iniciar o processo.
+        Caso o jogador cumpra certos pré-requisitos, é possível desbloquear um final alternativo em que Zelda e Link
+        avaliam Hyrule e falam sobre a reconstrução do mundo.
+      </h1>
+    </div>
+  </div>
+
+  <div class="global_slides">
+    <h3>Confira imagens de The legend Of Zelda</h3>
+    <div class="slideshow-container">
+
+      <div class="mySlides fade">
+        <div class="numbertext">1 / 5</div>
+        <img src="assets/imgs-carrossel/print 8.jpg" style="width:100%">
+      </div>
+
+      <div class="mySlides fade">
+        <div class="numbertext">2 / 5</div>
+        <img src="assets/imgs-carrossel/print 12.jpg" style="width:100%">
+      </div>
+
+      <div class="mySlides fade">
+        <div class="numbertext">3 / 5</div>
+        <img src="assets/imgs-carrossel/print 10.jpg" style="width:100%">
+      </div>
+
+      <div class="mySlides fade">
+        <div class="numbertext">4 / 5</div>
+        <img src="assets/imgs-carrossel/print 6.jpg" style="width:100%">
+      </div>
+
+      <div class="mySlides fade">
+        <div class="numbertext">5 / 5</div>
+        <img src="assets/imgs-carrossel/print 9.jpg" style="width:100%">
+      </div>
+      <ul class="next_prev">
+        <a class="prev" onclick="plusSlides(-1)">❮</a>
+        <a class="next" onclick="plusSlides(1)">❯</a>
+      </ul>
+
+    </div>
+    <br>
+
+    <div style="text-align:center">
+      <span class="dot" onclick="currentSlide(1)"></span>
+      <span class="dot" onclick="currentSlide(2)"></span>
+      <span class="dot" onclick="currentSlide(3)"></span>
+      <span class="dot" onclick="currentSlide(4)"></span>
+      <span class="dot" onclick="currentSlide(5)"></span>
+    </div>
+
+    <div class="div_trailer">
+      <h3>
+        Confira tambem o trailer da obra
+      </h3>
+      <iframe class="trailer" src="https://www.youtube.com/embed/zw47_q9wbBE" title="YouTube video player"
+        frameborder="0" allow="accelerometer; autoplay; 
+      clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+      </iframe>
+    </div>
+
+    <div class="div_goty">
+      <div class="goty">
+        <h2>
+          Zelda BOTW foi ganhador do GOTY de 2017
+          junto com os premios de melhor direção
+          e o premio de melhor jogo de ação e aventura.
+        </h2>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="footer">
+    <footer class="global_footer">
+      <section class="social_share">
+        <h3>
+          Me siga em!
+        </h3>
+        <div class="footer_icons">
+          <a target="_blank" href="https://github.com/GustavoDosSantosoMachado">
+            <img src="assets/icons/github_logo_icon_147285.png">
+          </a>
+          <a target="_blank" href="https://instagram.com/gulcia_?igshid=YmMyMTA2M2Y=">
+            <img src="assets/icons/Instagram-Icon.png">
+          </a>
+          <a target="_blank" href="https://www.linkedin.com/in/gustavo-machado-a13519240/">
+            <img src="assets/icons/174857.png">
+          </a>
+        </div>
+      </section>
+    </footer>
+  </div>
+</body>
+
+</html>
+
+<script src="js/funcoes.js">
+
+</script>
+
+<script>
+  nome_usuario_menu.innerHTML = sessionStorage.NOME_USUARIO;
+</script>

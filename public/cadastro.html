@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro ZeldaGG</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <div class="container_forms">
+        <div class="card">
+            <div class="form_box">
+                <div>
+                    <a href="index.html" class="logo_a">ZeldaGG</a>
+                </div>
+                <div>
+                    <h2>Iniciar sessão</h2>
+                </div>
+                <div>
+                    <h1>Seu Email</h1>
+                    <input type="text" placeholder="Email" id="email_input">
+                </div>
+                <div>
+                    <h1>Nome de Usuario</h1>
+                    <input type="text" placeholder="Nome" id="nome_input">
+                </div>
+                <div>
+                    <h1>Insira sua senha Senha</h1>
+                    <input type="password" placeholder="Senha" id="senha_input">
+                </div>
+                <div>
+                    <h1>Confirmar senha</h1>
+                    <input type="password" placeholder="Confirmar senha" id="confirmacao_senha_input">
+                </div>
+                <div class="div_formbox">
+                    <button onclick="cadastrar()">Cadastrar</button>
+
+                    <a href="login.html">Ja possui uma conta? faça login</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</body>
+
+</html>
+
+<script>
+    function cadastrar() {
+
+        //Recupere o valor da nova input pelo nome do id
+        // Agora vá para o método fetch logo abaixo
+        var nomeVar = nome_input.value;
+        var emailVar = email_input.value;
+        var senhaVar = senha_input.value;
+        var confirmacaoSenhaVar = confirmacao_senha_input.value;
+
+        var emailUpper = emailVar.toUpperCase()
+
+        if (nomeVar == "" || emailVar == "" || confirmacaoSenhaVar != senhaVar) {
+            alert('preecha os campos necessários')
+        }else if(emailUpper.indexOf('EMAIL.COM') == -1){
+            alert("email invalido")
+        }else if(emailUpper.indexOf('@') == -1){
+            alert("emial precisa ter @")
+        } else {
+
+            fetch("/usuarios/cadastrar", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    // Agora vá para o arquivo routes/usuario.js
+                    nomeServer: nomeVar,
+                    emailServer: emailVar,
+                    senhaServer: senhaVar,
+
+                }),
+            });
+            setTimeout(() => {
+                window.location.href = 'login.html'
+            }, 1000);
+
+        }
+    }
+
+</script>
